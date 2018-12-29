@@ -8,7 +8,7 @@ IMAGE=zookeeper
 version=`cat VERSION`
 buildDate=`date +"%y.%m.%d"`
 
-docker build
+docker build \
   --build-arg ZOOKEEPER_VERSION=$version \
   -t $USERNAME/$IMAGE:$version-$buildDate \
   -t $USERNAME/$IMAGE:$version \
