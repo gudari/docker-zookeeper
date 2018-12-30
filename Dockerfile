@@ -8,10 +8,19 @@ RUN yum install -y wget && \
     mkdir -p ${ZOOKEEPER_HOME} && \
     tar xvf zookeeper-${ZOOKEEPER_VERSION}.tar.gz -C ${ZOOKEEPER_HOME} --strip-components=1 && \
     rm -fr zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
+    rm -fr $ZOOKEEPER_HOME/src \
+    $ZOOKEEPER_HOME/recipes \
+    $ZOOKEEPER_HOME/docs \
+    $ZOOKEEPER_HOME/contrib && \
+    yum remove -y wget && \
+    yum autoremove -y && \
+    yum clean all -y && \
+    rm -rf /var/cache/yum && \
     mkdir /opt/init
 
 WORKDIR ${ZOOKEEPER_HOME}
 
-COPY run/bootstrap.sh /opt/init/bootstrap.sh
+COPY scritps/bootstrap.sh /opt/init/bootstrap.sh
+RUN chmod +x /opt/init/bootstrap.sh
 
 CMD /opt/init/bootstrap.sh
