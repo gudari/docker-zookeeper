@@ -42,7 +42,7 @@ generate_zoo_cfg $ZOOKEEPER_HOME/conf/zoo.cfg
 configure $ZOOKEEPER_HOME/conf/zoo.cfg zoo ZOO_CFG
 
 #debug
-cat $ZOOKEEPER_HOME/conf/zoo.cfg
+#cat $ZOOKEEPER_HOME/conf/zoo.cfg
 
 if [[ "${HOSTNAME}" =~ "zookeeper" ]]; then
   $ZOOKEEPER_HOME/bin/zkServer.sh start-foreground
