@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ZOO_CFG_dataDir=${ZOO_CFG_dataDir:-/var/lib/zookeeper}
+ZOO_MYID=${ZOO_MYID:-1}
+
 function generate_zoo_cfg() {
   local path=$1
   cat > $path << EOF
@@ -38,11 +41,22 @@ function configure() {
     done
 }
 
+function generate_myid() {
+  local path=$1
+  local module=$2
+  local value=$3
+
+  mkdir -p $path
+  echo $value > $path/myid
+}
+
 generate_zoo_cfg $ZOOKEEPER_HOME/conf/zoo.cfg
 configure $ZOOKEEPER_HOME/conf/zoo.cfg zoo ZOO_CFG
+generate_myid $ZOO_CFG_dataDir zoo $ZOO_MYID
 
 #debug
-#cat $ZOOKEEPER_HOME/conf/zoo.cfg
+cat $ZOOKEEPER_HOME/conf/zoo.cfg
+cat $ZOO_CFG_dataDir/myid
 
 if [[ "${HOSTNAME}" =~ "zookeeper" ]]; then
   $ZOOKEEPER_HOME/bin/zkServer.sh start-foreground
