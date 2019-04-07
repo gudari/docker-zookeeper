@@ -1,6 +1,6 @@
-FROM gudari/java:8u191-b12
+FROM gudari/java:8u201-b09
 
-ARG ZOOKEEPER_VERSION=3.4.13
+ARG ZOOKEEPER_VERSION=3.4.14
 ENV ZOOKEEPER_HOME=/opt/zookeeper
 
 RUN yum install -y wget && \
